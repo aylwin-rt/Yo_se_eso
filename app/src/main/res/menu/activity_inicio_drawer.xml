@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/grupo_perfil">
+        <item
+            android:id="@+id/nav_Perfil"
+            android:icon="@drawable/ic_perfil_menu"
+            android:title="@string/Perfil" />
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/grupo_ejercicios">
+        <item
+            android:id="@+id/nav_Inicio_Ejercicio"
+            android:icon="@drawable/ic_inicio_menu"
+            android:title="@string/Inicio" />
+        <item
+            android:id="@+id/nav_Proponer_Ejercicio"
+            android:icon="@drawable/ic_proponer_ejercicio_menu"
+            android:title="@string/Proponer_ejercicio" />
+        <item
+            android:id="@+id/nav_Resolver_Ejercicio"
+            android:icon="@drawable/ic_resolver_ejercicio_menu"
+            android:title="@string/Resolver_ejercicio" />
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/grupo_configuracion">
+
+        <item
+            android:id="@+id/nav_Configuracion"
+            android:icon="@drawable/ic_configuracion_menu"
+            android:title="@string/Configuracion" />
+    </group>
+
+</menu>

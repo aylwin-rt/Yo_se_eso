@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Yo sé eso</string>
+    <string name="Bienvenido">Bienvenido</string>
+    <string name="Ingresar">Ingresar</string>
+    <string name="Recuerdame">Recuérdame</string>
+    <string name="Email">Email</string>
+    <string name="Contrasenia">Contraseña</string>
+    <string name="Registrese">Regístrese</string>
+    <string name="Nombres">Nombres</string>
+    <string name="Apellidos">Apellidos</string>
+    <string name="ConfirmarContrasenia">Confirmar contraseña</string>
+    <string name="NombreDeUsuario">Nombre de usuario</string>
+    <string name="Usuario">Usuario</string>
+    <string name="Registrar">Registrar</string>
+    <string name="title_activity_inicio">InicioActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="Proponer_ejercicio">Proponer ejercicio</string>
+    <string name="Resolver_ejercicio">Resolver ejercicio</string>
+    <string name="Configuracion">Configuración</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Yo_se_eso">Yo sé eso</string>
+    <string name="Perfil">Perfil</string>
+    <string name="Inicio">Inicio</string>
+    <string name="Publicar_ejercicio">Publicar ejercicio</string>
+    <string name="Adjuntar_imagen">Adjuntar imagen</string>
+</resources>
