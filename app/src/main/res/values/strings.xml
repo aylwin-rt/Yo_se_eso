@@ -38,4 +38,6 @@
     <string name="Publicar_ejercicio">Publicar ejercicio</string>
     <string name="Adjuntar_imagen">Adjuntar imagen</string>
     <string name="Ingrese_su_ejercicio">Ingrese su ejercicio</string>
+    <string name="Publicar_respuesta">Publicar respuesta</string>
+    <string name="Adjuntar_texto">Adjuntar texto</string>
 </resources>

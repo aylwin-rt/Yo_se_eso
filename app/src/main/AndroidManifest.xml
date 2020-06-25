@@ -11,8 +11,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".InicioActivity"
-            android:label="@string/title_activity_inicio"
+            android:label="@string/Yo_se_eso"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <!-- android:label="@string/title_activity_inicio" -->
         <activity android:name=".RegistroActivity" />
         <activity
             android:name=".MainActivity"
