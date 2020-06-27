@@ -1,5 +1,6 @@
 package com.aylwin.yo_se_eso;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.aylwin.yo_se_eso.fragment.ConfiguracionFragment;
@@ -30,13 +31,15 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class InicioActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
     Fragment fragment;
-    Button btn_proponer_ejercicio;
+    ImageButton btn_proponer_ejercicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +47,6 @@ public class InicioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inicio);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        /*
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        */
 
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -110,24 +100,6 @@ public class InicioActivity extends AppCompatActivity {
 
             }
         });
-
-/*
-
-
-
-
-
-        btn_proponer_ejercicio = findViewById(R.id.btn_proponer_ejercicio);
-        btn_proponer_ejercicio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                fragment = new Proponer_ejercicioFragment();
-                InsertarFragmento();
-
-            }
-        });
-*/
 
     }
 
