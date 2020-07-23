@@ -25,6 +25,7 @@
         android:textColorHint="@color/colorHint">
 
         <EditText
+            android:id="@+id/edt_nombres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/Nombres"
@@ -40,6 +41,7 @@
         android:textColorHint="@color/colorHint">
 
         <EditText
+            android:id="@+id/edt_apellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/Apellidos"
@@ -55,9 +57,10 @@
         android:textColorHint="@color/colorHint">
 
         <EditText
+            android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/NombreDeUsuario"
+            android:hint="@string/Email"
             android:inputType="text"
             android:backgroundTint="@color/colorHint"
             android:textColor="@color/colorWhite" />
@@ -72,6 +75,7 @@
         app:passwordToggleTint="@color/colorHint">
 
         <EditText
+            android:id="@+id/edt_contrasenya"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorHint"
@@ -89,6 +93,7 @@
         app:passwordToggleTint="@color/colorHint">
 
         <EditText
+            android:id="@+id/edt_confirmar_contrasenya"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorHint"

@@ -5,18 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".fragment.MostrarEjerciciosFragment">
+    tools:context=".PreguntasActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_preguntas2"
+        android:id="@+id/recycler_preguntas"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/fabAgregarLibro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add" />
-
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_add"
+        android:layout_gravity="bottom|right"/>
 </FrameLayout>
