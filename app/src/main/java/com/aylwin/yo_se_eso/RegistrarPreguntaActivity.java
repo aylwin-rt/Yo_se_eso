@@ -1,21 +1,41 @@
 package com.aylwin.yo_se_eso;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
 import com.aylwin.yo_se_eso.networking.HelperWs;
 
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
@@ -37,7 +57,19 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
     Button btn_adjuntar, btn_publicar;
 
+    ImageView img_camara;
+
     int idUsuario;
+
+    String path;
+    String mcurrentPhotoPath;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    final int COD_SELECCIONA = 10;
+    final int COD_FOTO = 20;
+
+    private final String CARPETA_RAIZ = "mis/ImagenesPrueba/";
+    private final String RUTA_IMAGEN = "misFotos";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +84,7 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null) {
-            //Editar nuevo libro
+            //Editar nueva pregunta
             setTitle("Edición de Ejercicio");
 
             pregunta = (Pregunta) bundle.getSerializable("pregunta");
@@ -60,12 +92,10 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
             edt_nombre.setText(pregunta.getNombre());
             edt_tema.setText(pregunta.getTema());
 
-            //String idioma = libro.getIdioma();
-
             valor = 1;
 
         } else {
-            //Crear nuevo libro
+            //Crear nueva pregunta
             setTitle("Registro de Ejercicio");
 
             edt_nombre.setText("");
@@ -86,14 +116,31 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
                 if (valor == 0) {
                     //Creando
-                    grabarLibro();
+                    grabarPregunta();
                 } else {
                     //Editando
-                    editarLibro();
+                    editarPregunta();
                 }
 
             }
         });
+
+
+        btn_adjuntar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //1. Abrir la camara
+                //2. Permisos
+                //3. Binary
+
+
+                CargarImagen();
+
+
+            }
+        });
+
     }
 
     private void Init() {
@@ -101,10 +148,11 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
         edt_tema = findViewById(R.id.edt_tema);
         btn_adjuntar = findViewById(R.id.btn_adjuntar);
         btn_publicar = findViewById(R.id.btn_publicar);
+        img_camara = findViewById(R.id.img_camara);
 
     }
 
-    public void editarLibro() {
+    public void editarPregunta() {
 
         pd = new SweetAlertDialog(RegistrarPreguntaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
@@ -170,7 +218,7 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
     }
 
 
-    public void grabarLibro() {
+    public void grabarPregunta() {
 
         pd = new SweetAlertDialog(RegistrarPreguntaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
@@ -237,16 +285,81 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
         });
     }
 
-    private void recuperarPreferencia(){
+    private void recuperarPreferencia() {
 
-        SharedPreferences preferences = getSharedPreferences("PREFERENCIA_USUARIO",0);
-        idUsuario = preferences.getInt("idUsuario",-1);
+        SharedPreferences preferences = getSharedPreferences("PREFERENCIA_USUARIO", 0);
+        idUsuario = preferences.getInt("idUsuario", -1);
         //token = preferences.getString("token","");
     }
 
+    private void CargarImagen() {
+
+        final CharSequence[] opciones = {"Tomar foto", "Cargar imagen", "Cancelar"};
+        final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(RegistrarPreguntaActivity.this);
+        alertOpciones.setTitle("Seleccione una opción");
+        alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (opciones[i].equals("Tomar foto")) {
+                    //Toast.makeText(getApplicationContext(),"TOMAR FOTO",Toast.LENGTH_LONG).show();
+                    TomarFotografia();
+                } else {
+                    if (opciones[i].equals("Cargar imagen")) {
+                        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.setType("image/");
+                        startActivityForResult(intent.createChooser(intent, "Seleccione la aplicación"), 10);
+                    } else {
+                        dialogInterface.dismiss();
+                    }
+                }
+            }
+        });
+        alertOpciones.show();
+    }
+
+    private void TomarFotografia() {
+
+        if (ContextCompat.checkSelfPermission(RegistrarPreguntaActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(RegistrarPreguntaActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(RegistrarPreguntaActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
+        }
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.withAppendedPath(locationForPhotos, targetFilename));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
 
 
-/*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+            switch (requestCode) {
+                case COD_SELECCIONA:
+                    Uri miPath = data.getData();
+                    img_camara.setImageURI(miPath);
+                    break;
+
+                case COD_FOTO:
+                    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+                        Bundle extras = data.getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        img_camara.setImageBitmap(imageBitmap);
+                        break;
+                    }
+                }
+
+
+            }
+        }
+
+
+
+}
+
+    /*
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
 
@@ -264,4 +377,3 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
         }
 
  */
-}
