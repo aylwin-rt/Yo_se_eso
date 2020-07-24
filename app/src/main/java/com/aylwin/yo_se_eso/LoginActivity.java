@@ -170,10 +170,10 @@ public class LoginActivity extends AppCompatActivity {
         preferences.commit();
     }
 
-    private void guardarPreferenciaUsuario(int codigoUsuario, String token){
+    private void guardarPreferenciaUsuario(int idUsuario, String token){
 
         SharedPreferences.Editor preferences = getSharedPreferences("PREFERENCIA_USUARIO",0).edit();
-        preferences.putInt("codigoUsuario",codigoUsuario);
+        preferences.putInt("idUsuario",idUsuario);
         preferences.putString("token",token);
         preferences.commit();
     }

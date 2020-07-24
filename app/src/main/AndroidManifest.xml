@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".RegistrarPreguntaActivity"></activity>
-        <activity android:name=".ProponerActivity" />
         <activity android:name=".PreguntasActivity" />
         <activity android:name=".PrincipalActivity" />
         <activity

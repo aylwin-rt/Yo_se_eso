@@ -33,7 +33,7 @@ public class PrincipalActivity extends AppCompatActivity {
         btn_proponer_ejercicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PrincipalActivity.this, ProponerActivity.class);
+                Intent intent = new Intent(PrincipalActivity.this, RegistrarPreguntaActivity.class);
                 startActivity(intent);
             }
         });

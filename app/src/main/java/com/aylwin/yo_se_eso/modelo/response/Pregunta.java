@@ -6,7 +6,16 @@ public class Pregunta {
     private String fecha;
     private String tema;
     private String nombreUsuario;
+    private int idUsuario;
     private String rutaImagen;
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public int getIdPregunta() {
         return idPregunta;
