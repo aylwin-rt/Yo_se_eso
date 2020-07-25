@@ -16,6 +16,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface EndPoint {
@@ -30,6 +31,9 @@ public interface EndPoint {
     //Autorizado
     @GET("Pregunta")
     Call<ArrayList<Pregunta>> obtenerPreguntas(@Header("Authorization") String token);
+
+    @GET("Pregunta/{idUsuario}")
+    Call<ArrayList<Pregunta>> obtenerPreguntasPorCodigo(@Header("Authorization") String token,@Path("idUsuario") int idUsuario);
 
     @DELETE("Pregunta")
     @Headers("Content-Type:application/json")

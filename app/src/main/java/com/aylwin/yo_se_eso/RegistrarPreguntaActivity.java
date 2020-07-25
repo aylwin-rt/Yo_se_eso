@@ -64,6 +64,7 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
     String path;
     String mcurrentPhotoPath;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
 
     final int COD_SELECCIONA = 10;
     final int COD_FOTO = 20;
@@ -326,8 +327,29 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         //intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.withAppendedPath(locationForPhotos, targetFilename));
         if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            //startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+                //Toast.makeText(getApplicationContext(),ex.toString(),Toast.LENGTH_LONG).show();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(intent, COD_FOTO);
+                //startActivityForResult(intent, REQUEST_TAKE_PHOTO);
+
+            }
+
+
         }
+
+
     }
 
 
@@ -342,22 +364,37 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
                     img_camara.setImageURI(miPath);
                     break;
 
-                case COD_FOTO:
-                    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-                        Bundle extras = data.getExtras();
-                        Bitmap imageBitmap = (Bitmap) extras.get("data");
-                        img_camara.setImageBitmap(imageBitmap);
-                        break;
-                    }
-                }
-
-
+                case COD_FOTO: //TODO REVISAR ESTA PARTE
+                    MediaScannerConnection.scanFile(this, new String[]{path}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String s, Uri uri) {
+                                    Log.i("Ruta de almacenamiento", "Path: " + path);
+                                }
+                            });
+                    Bitmap bitmap = BitmapFactory.decodeFile(path);
+                    img_camara.setImageBitmap(bitmap);
+                    break;
             }
         }
 
 
+    }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "BACKUP_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        mcurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
 
 }
+
 
     /*
     @Override

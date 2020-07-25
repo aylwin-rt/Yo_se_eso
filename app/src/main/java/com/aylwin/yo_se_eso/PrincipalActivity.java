@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import com.aylwin.yo_se_eso.R;
 
 public class PrincipalActivity extends AppCompatActivity {
-    ImageButton btn_proponer_ejercicio, btn_resolver_ejercicio;
+    ImageButton btn_proponer_ejercicio, btn_resolver_ejercicio, btn_mis_ejercicios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +22,13 @@ public class PrincipalActivity extends AppCompatActivity {
         Init();
         InitEvents();
 
+
     }
 
     private void Init() {
         btn_proponer_ejercicio = findViewById(R.id.btn_proponer_ejercicio);
         btn_resolver_ejercicio = findViewById(R.id.btn_resolver_ejercicio);
+        btn_mis_ejercicios=findViewById(R.id.btn_mis_ejercicios);
     }
 
     private void InitEvents() {
@@ -43,6 +45,14 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PrincipalActivity.this, PreguntasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_mis_ejercicios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrincipalActivity.this, PreguntasPorCodigoActivity.class);
                 startActivity(intent);
             }
         });
