@@ -42,76 +42,6 @@ public class PreguntasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_preguntas);
         recycler_preguntas = findViewById(R.id.recycler_preguntas);
         setTitle("Listado de Preguntas");
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
-
-                //viewHolder.getAdapterPosition() = Posicion donde se hace el swiped
-
-                //Llamar a ese Layout
-
-                Pregunta pregunta = adapter.obtenerPregunta(viewHolder.getAdapterPosition());
-
-                /*
-                //Eliminar la pregunta
-                pd = new SweetAlertDialog(PreguntasActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-                pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
-                pd.setContentText("Por favor, espere ELIMINAR");
-                pd.setCancelable(false);
-                pd.show();
-
-                EndPoint endPoint = HelperWs.getConfiguration().create(EndPoint.class);
-                Call<Respuesta> response =  endPoint.eliminarPregunta(pregunta.getIdPregunta());
-                response.enqueue(new Callback<Respuesta>() {
-                    @Override
-                    public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-
-                        if (response.isSuccessful()){
-
-                            Respuesta respuesta = response.body();
-
-                            if (respuesta.getMensajeCodigo() == 200){
-
-                                adapter.eliminarPregunta(viewHolder.getAdapterPosition());
-                                pd.dismiss();
-                            }
-                            else{
-
-                                pd.dismiss();
-
-                                pd = new SweetAlertDialog(PreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
-                                pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
-                                pd.setContentText(respuesta.getMensajeResultado());
-                                pd.setCancelable(false);
-                                pd.show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Respuesta> call, Throwable t) {
-
-                        pd.dismiss();
-
-                        pd = new SweetAlertDialog(PreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
-                        pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
-                        pd.setContentText(t.getMessage());
-                        pd.setCancelable(false);
-                        pd.show();
-                    }
-                });
-
-                 */
-
-
-            }
-        }).attachToRecyclerView(recycler_preguntas);
     }
 
     @Override
@@ -180,10 +110,6 @@ public class PreguntasActivity extends AppCompatActivity {
                 Intent intent = new Intent(PreguntasActivity.this,RegistrarPreguntaActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-                //1. Abrir la camara
-                //2. Permisos
-                //3. Binary
             }
         });
 

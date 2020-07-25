@@ -35,9 +35,9 @@ public interface EndPoint {
     @GET("Pregunta/{idUsuario}")
     Call<ArrayList<Pregunta>> obtenerPreguntasPorCodigo(@Header("Authorization") String token,@Path("idUsuario") int idUsuario);
 
-    @DELETE("Pregunta")
+    @DELETE("Pregunta/{idPregunta}")
     @Headers("Content-Type:application/json")
-    Call<Respuesta> eliminarPregunta(@Query("idPregunta") int idPregunta);
+    Call<Respuesta> eliminarPregunta(@Path("idPregunta") int idPregunta);
 
     @POST("Pregunta")
     @Headers("Content-Type:application/json")

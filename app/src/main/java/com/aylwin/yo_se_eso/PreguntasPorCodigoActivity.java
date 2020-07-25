@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.aylwin.yo_se_eso.adapter.PreguntaAdapter;
 import com.aylwin.yo_se_eso.adapter.PreguntaPorCodigoAdapter;
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
+import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
 import com.aylwin.yo_se_eso.networking.HelperWs;
 
@@ -58,9 +59,9 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
 
                 Pregunta pregunta = adapter.obtenerPregunta(viewHolder.getAdapterPosition());
 
-                /*
+
                 //Eliminar la pregunta
-                pd = new SweetAlertDialog(PreguntasActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                pd = new SweetAlertDialog(PreguntasPorCodigoActivity.this, SweetAlertDialog.PROGRESS_TYPE);
                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                 pd.setContentText("Por favor, espere ELIMINAR");
                 pd.setCancelable(false);
@@ -85,7 +86,7 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
 
                                 pd.dismiss();
 
-                                pd = new SweetAlertDialog(PreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
+                                pd = new SweetAlertDialog(PreguntasPorCodigoActivity.this, SweetAlertDialog.ERROR_TYPE);
                                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                                 pd.setContentText(respuesta.getMensajeResultado());
                                 pd.setCancelable(false);
@@ -99,7 +100,7 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
 
                         pd.dismiss();
 
-                        pd = new SweetAlertDialog(PreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
+                        pd = new SweetAlertDialog(PreguntasPorCodigoActivity.this, SweetAlertDialog.ERROR_TYPE);
                         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                         pd.setContentText(t.getMessage());
                         pd.setCancelable(false);
@@ -107,7 +108,7 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
                     }
                 });
 
-                 */
+
 
 
             }
