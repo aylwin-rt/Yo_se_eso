@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Toast;
 
 import com.aylwin.yo_se_eso.adapter.PreguntaAdapter;
@@ -107,9 +110,6 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
                         pd.show();
                     }
                 });
-
-
-
 
             }
         }).attachToRecyclerView(recycler_preguntasPorCodigo);

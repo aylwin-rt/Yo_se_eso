@@ -23,10 +23,7 @@
         <activity android:name=".RegistrarPreguntaActivity" />
         <activity android:name=".PreguntasActivity" />
         <activity android:name=".PrincipalActivity" />
-        <activity
-            android:name=".InicioActivity"
-            android:label="@string/Yo_se_eso"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- android:label="@string/title_activity_inicio" -->
+        <!-- android:label="@string/title_activity_inicio" -->
         <activity android:name=".RegistroActivity" />
         <activity
             android:name=".LoginActivity"
