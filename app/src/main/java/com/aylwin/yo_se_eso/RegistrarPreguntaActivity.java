@@ -49,7 +49,7 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
     SweetAlertDialog pd;
 
-    int valor;
+    int valor, idUsuario, idPregunta;
 
     Pregunta pregunta;
 
@@ -59,8 +59,6 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
     ImageView img_camara;
 
-    int idUsuario;
-
     String path;
     String mcurrentPhotoPath;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -68,6 +66,8 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
     final int COD_SELECCIONA = 10;
     final int COD_FOTO = 20;
+
+    Bitmap bitmap;
 
     private final String CARPETA_RAIZ = "mis/ImagenesPrueba/";
     private final String RUTA_IMAGEN = "misFotos";
@@ -88,10 +88,13 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
             //Editar nueva pregunta
             setTitle("Edición de Ejercicio");
 
+
+            //Recuperamos el Bundle
             pregunta = (Pregunta) bundle.getSerializable("pregunta");
 
             edt_nombre.setText(pregunta.getNombre());
             edt_tema.setText(pregunta.getTema());
+            idPregunta= pregunta.getIdPregunta();
 
             valor = 1;
 
@@ -150,20 +153,22 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
         btn_adjuntar = findViewById(R.id.btn_adjuntar);
         btn_publicar = findViewById(R.id.btn_publicar);
         img_camara = findViewById(R.id.img_camara);
-
     }
 
     public void editarPregunta() {
 
         pd = new SweetAlertDialog(RegistrarPreguntaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
-        pd.setContentText("Por favor, espere");
+        pd.setContentText("Por favor, espere EDITAR");
         pd.setCancelable(false);
         pd.show();
 
         Pregunta preguntaRequest = new Pregunta();
         preguntaRequest.setNombre(edt_nombre.getText().toString());
-        preguntaRequest.setNombre(edt_tema.getText().toString());
+        preguntaRequest.setTema(edt_tema.getText().toString());
+        preguntaRequest.setIdUsuario(idUsuario);
+        preguntaRequest.setIdPregunta(idPregunta);//TODO DEBO PASAR LA IDPREGUNTA
+        preguntaRequest.setRutaImagen("");
 
         EndPoint endPoint = HelperWs.getConfiguration().create(EndPoint.class);
         Call<Respuesta> response = endPoint.actualizarPregunta(preguntaRequest);
@@ -231,6 +236,7 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
         pregunta.setNombre(edt_nombre.getText().toString());
         pregunta.setTema(edt_tema.getText().toString());
         pregunta.setIdUsuario(idUsuario);
+        //pregunta.setIdPregunta(idPregunta); //TODO VER
         pregunta.setRutaImagen("");
 
 
@@ -362,6 +368,8 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
                 case COD_SELECCIONA:
                     Uri miPath = data.getData();
                     img_camara.setImageURI(miPath);
+
+                    
                     break;
 
                 case COD_FOTO: //TODO REVISAR ESTA PARTE

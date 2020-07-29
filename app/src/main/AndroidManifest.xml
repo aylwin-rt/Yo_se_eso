@@ -19,11 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PreguntasPorCodigoActivity"></activity>
+        <activity android:name=".Prueba"></activity>
+        <activity android:name=".PreguntasPorCodigoActivity" />
         <activity android:name=".RegistrarPreguntaActivity" />
         <activity android:name=".PreguntasActivity" />
-        <activity android:name=".PrincipalActivity" />
-        <!-- android:label="@string/title_activity_inicio" -->
+        <activity android:name=".PrincipalActivity" /> <!-- android:label="@string/title_activity_inicio" -->
         <activity android:name=".RegistroActivity" />
         <activity
             android:name=".LoginActivity"
@@ -42,7 +42,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

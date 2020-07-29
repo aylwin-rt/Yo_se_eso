@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class PreguntaPorCodigoAdapter extends RecyclerView.Adapter<PreguntaPorCodigoAdapter.PreguntaPorCodigoAdapterViewHolder>{
     ArrayList<Pregunta> listPregunta;
     PreguntaPorCodigoAdapter.OnItemClickListener listener;
+    int idPregunta;
 
     public PreguntaPorCodigoAdapter(ArrayList<Pregunta> listPregunta) {
         this.listPregunta = listPregunta;
@@ -41,6 +42,7 @@ public class PreguntaPorCodigoAdapter extends RecyclerView.Adapter<PreguntaPorCo
         holder.tv_tema.setText(pregunta.getTema());
         holder.tv_nombreUsuario.setText(pregunta.getNombreUsuario());
         holder.tv_fecha.setText(pregunta.getFecha());
+        //idPregunta = pregunta.getIdPregunta(); //TODO REVISAR
 
 
         String url = "http://aylwin100-001-site1.itempurl.com/"+pregunta.getRutaImagen();

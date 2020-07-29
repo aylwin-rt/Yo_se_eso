@@ -36,7 +36,6 @@ public class PreguntaAdapter  extends RecyclerView.Adapter<PreguntaAdapter.Pregu
 
         //3 items
         Pregunta pregunta = listPregunta.get(position);
-
         holder.tv_nombre.setText(pregunta.getNombre());
         holder.tv_fecha.setText(pregunta.getFecha());
         holder.tv_tema.setText(pregunta.getTema());
@@ -51,21 +50,27 @@ public class PreguntaAdapter  extends RecyclerView.Adapter<PreguntaAdapter.Pregu
 
     }
 
+
     @Override
     public int getItemCount() {
         return listPregunta.size();
     }
+
+    /*
 
     public Pregunta obtenerPregunta(int position) {
 
         return listPregunta.get(position);
     }
 
+
     public void eliminarPregunta(int position) {
 
         listPregunta.remove(position);
         notifyItemRemoved(position);
     }
+
+     */
 
 
     public class PreguntaAdapterViewHolder extends RecyclerView.ViewHolder {
@@ -99,9 +104,12 @@ public class PreguntaAdapter  extends RecyclerView.Adapter<PreguntaAdapter.Pregu
         void onItemClick(Pregunta pregunta);
     }
 
+    /*
     //Nexo entre la actividad y el adaptador
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
+    
+     */
 
 }

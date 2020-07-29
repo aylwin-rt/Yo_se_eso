@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
 import android.widget.Toast;
 
 import com.aylwin.yo_se_eso.adapter.PreguntaAdapter;
@@ -21,6 +22,7 @@ import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
 import com.aylwin.yo_se_eso.networking.HelperWs;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -40,11 +42,20 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
 
     SweetAlertDialog pd;
 
+    FloatingActionButton fabAgregarPreguntaPorCodigo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preguntas_por_codigo);
-        recycler_preguntasPorCodigo = findViewById(R.id.recycler_preguntasPorCodigo);
+
+        Init();
+        InitEvents();
+
+    }
+
+    private void InitEvents() {
+
         setTitle("Listado de tus Preguntas");
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -113,6 +124,22 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
 
             }
         }).attachToRecyclerView(recycler_preguntasPorCodigo);
+
+        fabAgregarPreguntaPorCodigo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PreguntasPorCodigoActivity.this, RegistrarPreguntaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void Init() {
+
+        recycler_preguntasPorCodigo = findViewById(R.id.recycler_preguntasPorCodigo);
+        fabAgregarPreguntaPorCodigo = findViewById(R.id.fabAgregarPreguntaPorCodigo);
+
     }
 
     @Override
@@ -136,11 +163,8 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
 
                     ArrayList<Pregunta> listPregunta = response.body();
-
                     configurarAdaptador(listPregunta);
-
-                    Toast toast = Toast. makeText(getApplicationContext(), "Respondió el llamado a Pregunta", Toast. LENGTH_SHORT);
-
+                    //Toast toast = Toast. makeText(getApplicationContext(), "Respondió el llamado a Pregunta", Toast. LENGTH_SHORT);
                     pd.dismiss();
 
                 }
@@ -155,7 +179,6 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                 pd.setContentText(t.getMessage());
                 pd.setCancelable(false);
-                Toast toast = Toast. makeText(getApplicationContext(), t.toString(), Toast. LENGTH_SHORT);
                 pd.show();
             }
         });
@@ -169,38 +192,24 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
         adapter = new PreguntaPorCodigoAdapter(listPregunta);
 
         recycler_preguntasPorCodigo.setAdapter(adapter);
-        //recycler_preguntas.setLayoutManager(new GridLayoutManager(this,2));
         recycler_preguntasPorCodigo.setLayoutManager(new LinearLayoutManager(this));
 
         adapter.setOnItemClickListener(new PreguntaPorCodigoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Pregunta pregunta) {
 
+                //Creamos el bundle
                 Bundle bundle = new Bundle();
-                //bundle.putSerializable("pregunta",pregunta); //TODO FALTA ESTE
+                bundle.putSerializable("pregunta",pregunta);
 
                 //Intent
                 Intent intent = new Intent(PreguntasPorCodigoActivity.this,RegistrarPreguntaActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-                //1. Abrir la camara
-                //2. Permisos
-                //3. Binary
             }
         });
 
     }
-
-    /*
-    @OnClick(R.id.fabAgregarLibro)
-    public void agregarLibro(){
-
-        Intent i = new Intent(LibrosActivity.this, RegistrarLibroActivity.class);
-        startActivity(i);
-    }
-
-     */
 
     private void recuperarPreferencia(){
 

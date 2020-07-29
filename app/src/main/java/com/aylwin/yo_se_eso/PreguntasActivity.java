@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.aylwin.yo_se_eso.adapter.PreguntaAdapter;
@@ -17,6 +18,7 @@ import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
 import com.aylwin.yo_se_eso.networking.HelperWs;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -36,12 +38,32 @@ public class PreguntasActivity extends AppCompatActivity {
 
     SweetAlertDialog pd;
 
+    FloatingActionButton fabAgregarPregunta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preguntas);
-        recycler_preguntas = findViewById(R.id.recycler_preguntas);
+
+        Init();
+        InitEvents();
         setTitle("Listado de Preguntas");
+    }
+
+    private void InitEvents() {
+
+        fabAgregarPregunta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PreguntasActivity.this, RegistrarPreguntaActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void Init() {
+        fabAgregarPregunta = findViewById(R.id.fabAgregarPregunta);
+        recycler_preguntas = findViewById(R.id.recycler_preguntas);
     }
 
     @Override
@@ -57,19 +79,16 @@ public class PreguntasActivity extends AppCompatActivity {
         pd.show();
 
         EndPoint endPoint = HelperWs.getConfiguration().create(EndPoint.class);
-        Call<ArrayList<Pregunta>> response = endPoint.obtenerPreguntas("Bearer" + " " +token);
+        Call<ArrayList<Pregunta>> response = endPoint.obtenerPreguntas("Bearer" + " " + token);
         response.enqueue(new Callback<ArrayList<Pregunta>>() {
             @Override
             public void onResponse(Call<ArrayList<Pregunta>> call, Response<ArrayList<Pregunta>> response) {
 
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     ArrayList<Pregunta> listPregunta = response.body();
-
                     configurarAdaptador(listPregunta);
-
-                    Toast toast = Toast. makeText(getApplicationContext(), "Respondió el llamado a Pregunta", Toast. LENGTH_SHORT);
-
+                    Toast toast = Toast.makeText(getApplicationContext(), "Respondió el llamado a Pregunta", Toast.LENGTH_SHORT);
                     pd.dismiss();
 
                 }
@@ -84,7 +103,6 @@ public class PreguntasActivity extends AppCompatActivity {
                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                 pd.setContentText(t.getMessage());
                 pd.setCancelable(false);
-                Toast toast = Toast. makeText(getApplicationContext(), t.toString(), Toast. LENGTH_SHORT);
                 pd.show();
             }
         });
@@ -96,40 +114,16 @@ public class PreguntasActivity extends AppCompatActivity {
         adapter = new PreguntaAdapter(listPregunta);
 
         recycler_preguntas.setAdapter(adapter);
-        //recycler_preguntas.setLayoutManager(new GridLayoutManager(this,2));
         recycler_preguntas.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter.setOnItemClickListener(new PreguntaAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Pregunta pregunta) {
-
-                Bundle bundle = new Bundle();
-                //bundle.putSerializable("pregunta",pregunta); //TODO FALTA ESTE
-
-                //Intent
-                Intent intent = new Intent(PreguntasActivity.this,RegistrarPreguntaActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
 
     }
 
-    /*
-    @OnClick(R.id.fabAgregarLibro)
-    public void agregarLibro(){
+    private void recuperarPreferencia() {
 
-        Intent i = new Intent(LibrosActivity.this, RegistrarLibroActivity.class);
-        startActivity(i);
-    }
-
-     */
-
-    private void recuperarPreferencia(){
-
-        SharedPreferences preferences = getSharedPreferences("PREFERENCIA_USUARIO",0);
-        idUsuario = preferences.getInt("idUsuario",-1);
-        token = preferences.getString("token","");
+        SharedPreferences preferences = getSharedPreferences("PREFERENCIA_USUARIO", 0);
+        idUsuario = preferences.getInt("idUsuario", -1);
+        token = preferences.getString("token", "");
     }
 
 }

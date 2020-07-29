@@ -1,6 +1,8 @@
 package com.aylwin.yo_se_eso.modelo.response;
 
-public class Pregunta {
+import java.io.Serializable;
+
+public class Pregunta implements Serializable {
     private int idPregunta;
     private String nombre;
     private String fecha;
