@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aylwin.yo_se_eso.adapter.PreguntaAdapter;
+import com.aylwin.yo_se_eso.adapter.PreguntaPorCodigoAdapter;
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
@@ -48,6 +49,7 @@ public class PreguntasActivity extends AppCompatActivity {
         Init();
         InitEvents();
         setTitle("Listado de Preguntas");
+
     }
 
     private void InitEvents() {
@@ -116,6 +118,20 @@ public class PreguntasActivity extends AppCompatActivity {
         recycler_preguntas.setAdapter(adapter);
         recycler_preguntas.setLayoutManager(new LinearLayoutManager(this));
 
+        adapter.setOnItemClickListener(new PreguntaAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Pregunta pregunta) {
+
+                //Creamos el bundle
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("pregunta",pregunta);
+
+                //Intent
+                Intent intent = new Intent(PreguntasActivity.this,RespuestasPorPreguntasActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
     }
 

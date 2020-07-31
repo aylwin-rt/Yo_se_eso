@@ -100,7 +100,7 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
         } else {
             //Crear nueva pregunta
-            setTitle("Registro de Ejercicio");
+            setTitle("Registrar Pregunta");
 
             edt_nombre.setText("");
             edt_tema.setText("");

@@ -46,4 +46,27 @@ public interface EndPoint {
     @PUT("Pregunta")
     @Headers("Content-Type:application/json")
     Call<Respuesta> actualizarPregunta(@Body Pregunta pregunta);
+
+
+    //Autorizado
+    @GET("RespuestaPorPregunta/{idPregunta}")
+    Call<ArrayList<Respuesta>> obtenerRespuestasPorPregunta(@Header("Authorization") String token,@Path("idPregunta") int idRespuesta);
+
+
+    //Autorizado
+    @GET("RespuestaPorUsuario/{idUsuario}")
+    Call<ArrayList<Respuesta>> obtenerRespuestasPorUsuario(@Header("Authorization") String token,@Path("idUsuairo") int idUsuario);
+
+
+    @DELETE("Respuesta/{idRespuesta}")
+    @Headers("Content-Type:application/json")
+    Call<Respuesta> eliminarRespuesta(@Path("idRespuesta") int idRespuesta);
+
+    @POST("Pregunta")
+    @Headers("Content-Type:application/json")
+    Call<Respuesta> grabarRespuesta(@Body Respuesta respuesta);
+
+    @PUT("Pregunta")
+    @Headers("Content-Type:application/json")
+    Call<Respuesta> actualizarRespuesta(@Body Respuesta respuesta);
 }

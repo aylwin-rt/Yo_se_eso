@@ -196,16 +196,52 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new PreguntaPorCodigoAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Pregunta pregunta) {
+            public void onItemClick(final Pregunta pregunta) {
 
-                //Creamos el bundle
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("pregunta",pregunta);
 
-                //Intent
-                Intent intent = new Intent(PreguntasPorCodigoActivity.this,RegistrarPreguntaActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
+
+                final CharSequence[] opciones = {"Ver respuestas", "Editar pregunta", "Cancelar"};
+                final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(PreguntasPorCodigoActivity.this);
+                alertOpciones.setTitle("Seleccione una opción");
+                alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (opciones[i].equals("Ver respuestas")) {
+
+                            //TODO AQUÍ LLAMAR A RespuestasPorCódigoActivity
+
+                            //Creamos el bundle
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("pregunta",pregunta);
+
+                            Intent intent = new Intent(PreguntasPorCodigoActivity.this,RespuestasPorTuPreguntaActivity.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+
+                        } else {
+                            if (opciones[i].equals("Editar pregunta")) {
+
+                                //Creamos el bundle
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("pregunta",pregunta);
+
+                                //Intent
+                                Intent intent = new Intent(PreguntasPorCodigoActivity.this,RegistrarPreguntaActivity.class);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+
+                            } else {
+                                dialogInterface.dismiss();
+                            }
+                        }
+                    }
+                });
+                alertOpciones.show();
+
+
+
+
+
             }
         });
 

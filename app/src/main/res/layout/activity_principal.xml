@@ -18,15 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="@string/Bienvenido"
                 android:textColor="@color/colorWhite"
-                android:layout_marginRight="10dp"
                 android:textSize="25dp" />
 
 
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/Proponer_ejercicio"
+                android:text="@string/Preguntas"
                 android:textColor="@color/colorWhite"
                 android:textSize="25dp"
                 android:textStyle="bold" />
@@ -55,26 +56,67 @@
             android:layout_height="0dp"
             android:layout_weight="4"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_proponer_ejercicio"
-                style="@style/Widget.AppCompat.ImageButton"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:background="@drawable/ic_proponer_ejercicio" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/Proponer_pregunta"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/Tus_preguntas"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_proponer_ejercicio"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/ic_proponer_ejercicio" />
 
 
-            <ImageButton
-                android:id="@+id/btn_mis_ejercicios"
-                style="@style/Widget.AppCompat.ImageButton"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:background="@drawable/listado_preguntas" />
+                <ImageButton
+                    android:id="@+id/btn_mis_ejercicios"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/listado_preguntas" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
-
 
 
     </LinearLayout>
@@ -98,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/Resolver_ejercicio"
+                android:text="@string/Respuestas"
                 android:textColor="@color/colorWhite"
                 android:textSize="25dp"
                 android:textStyle="bold" />
@@ -112,11 +154,63 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_resolver_ejercicio"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:background="@drawable/ic_resolver_ejercicio" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/Resolver_pregunta"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/Tus_preguntas"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_resolver_ejercicio"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/ic_resolver_ejercicio" />
+
+
+                <ImageButton
+                    android:id="@+id/btn_mis_respuestas"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:background="@drawable/listado_respuestas" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
