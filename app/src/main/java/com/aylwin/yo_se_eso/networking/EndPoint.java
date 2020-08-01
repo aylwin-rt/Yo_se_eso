@@ -55,7 +55,7 @@ public interface EndPoint {
 
     //Autorizado
     @GET("RespuestaPorUsuario/{idUsuario}")
-    Call<ArrayList<Respuesta>> obtenerRespuestasPorUsuario(@Header("Authorization") String token,@Path("idUsuairo") int idUsuario);
+    Call<ArrayList<Respuesta>> obtenerRespuestasPorUsuario(@Header("Authorization") String token,@Path("idUsuario") int idUsuario);
 
 
     @DELETE("Respuesta/{idRespuesta}")
