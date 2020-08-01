@@ -1,8 +1,6 @@
 package com.aylwin.yo_se_eso;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,9 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.aylwin.yo_se_eso.adapter.PreguntaAdapter;
-import com.aylwin.yo_se_eso.adapter.PreguntaPorCodigoAdapter;
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
-import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
 import com.aylwin.yo_se_eso.networking.HelperWs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -127,7 +123,7 @@ public class PreguntasActivity extends AppCompatActivity {
                 bundle.putSerializable("pregunta",pregunta);
 
                 //Intent
-                Intent intent = new Intent(PreguntasActivity.this,RespuestasPorPreguntasActivity.class);
+                Intent intent = new Intent(PreguntasActivity.this, RespuestasPorPreguntaActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }

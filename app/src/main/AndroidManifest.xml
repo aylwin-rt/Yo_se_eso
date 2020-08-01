@@ -19,8 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RespuestasPorTuPreguntaActivity"></activity>
-        <activity android:name=".RespuestasPorPreguntasActivity" />
+        <activity android:name=".RespuestasPorPreguntaActivity"></activity>
+        <activity android:name=".RespuestasPorTuPreguntasActivity" />
         <activity android:name=".RegistrarRespuestaActivity" />
         <activity android:name=".Prueba" />
         <activity android:name=".PreguntasPorCodigoActivity" />

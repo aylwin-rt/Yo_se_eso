@@ -12,11 +12,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Toast;
 
-import com.aylwin.yo_se_eso.adapter.PreguntaAdapter;
 import com.aylwin.yo_se_eso.adapter.PreguntaPorCodigoAdapter;
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
@@ -214,7 +211,7 @@ public class PreguntasPorCodigoActivity extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("pregunta",pregunta);
 
-                            Intent intent = new Intent(PreguntasPorCodigoActivity.this,RespuestasPorTuPreguntaActivity.class);
+                            Intent intent = new Intent(PreguntasPorCodigoActivity.this, RespuestasPorTuPreguntasActivity.class);
                             intent.putExtras(bundle);
                             startActivity(intent);
 

@@ -15,8 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RespuestaPorPreguntaAdapter extends RecyclerView.Adapter<RespuestaPorPreguntaAdapter.RespuestaAdapterViewHolder>{
-
+public class RespuestaPorPreguntaAdapter extends RecyclerView.Adapter<RespuestaPorPreguntaAdapter.RespuestaPorTuPreguntaAdapterViewHolder> {
     ArrayList<Respuesta> listRespuesta;
     RespuestaPorPreguntaAdapter.OnItemClickListener listener;
 
@@ -24,17 +23,17 @@ public class RespuestaPorPreguntaAdapter extends RecyclerView.Adapter<RespuestaP
         this.listRespuesta = listRespuesta;
     }
 
+
     @NonNull
     @Override
-    public RespuestaPorPreguntaAdapter.RespuestaAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_respuesta,parent,false); //TODO REVISAR
-        return new RespuestaPorPreguntaAdapter.RespuestaAdapterViewHolder(view);
+    public RespuestaPorPreguntaAdapter.RespuestaPorTuPreguntaAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_respuesta,parent,false);
+        return new RespuestaPorPreguntaAdapter.RespuestaPorTuPreguntaAdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RespuestaPorPreguntaAdapter.RespuestaAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RespuestaPorPreguntaAdapter.RespuestaPorTuPreguntaAdapterViewHolder holder, int position) {
 
-        //3 items
         Respuesta respuesta = listRespuesta.get(position);
         holder.tv_nombre.setText(respuesta.getNombre());
         holder.tv_fecha.setText(respuesta.getFecha());
@@ -45,7 +44,6 @@ public class RespuestaPorPreguntaAdapter extends RecyclerView.Adapter<RespuestaP
         String url = "http://aylwin100-001-site1.itempurl.com/"+respuesta.getRutaImagen();
 
         Picasso.get().load(url).error(R.drawable.error_center_x).into(holder.img_foto);
-
 
     }
 
@@ -72,12 +70,12 @@ public class RespuestaPorPreguntaAdapter extends RecyclerView.Adapter<RespuestaP
      */
 
 
-    public class RespuestaAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class RespuestaPorTuPreguntaAdapterViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_nombre, tv_fecha, tv_tema, tv_nombreUsuario;//tv_rutaImagen
         ImageView img_foto;
 
-        public RespuestaAdapterViewHolder(@NonNull View itemView) {
+        public RespuestaPorTuPreguntaAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_nombre = itemView.findViewById(R.id.tv_nombre);
@@ -103,11 +101,10 @@ public class RespuestaPorPreguntaAdapter extends RecyclerView.Adapter<RespuestaP
         void onItemClick(Respuesta respuesta);
     }
 
-    /*
+
     //Nexo entre la actividad y el adaptador
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(RespuestaPorPreguntaAdapter.OnItemClickListener listener){
         this.listener = listener;
     }
 
-     */
 }

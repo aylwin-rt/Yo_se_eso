@@ -11,14 +11,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aylwin.yo_se_eso.adapter.RespuestaPorTuPreguntaAdapter;
+import com.aylwin.yo_se_eso.adapter.RespuestaPorPreguntaAdapter;
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
 import com.aylwin.yo_se_eso.networking.HelperWs;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -26,11 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RespuestasPorTuPreguntaActivity extends AppCompatActivity {
+public class RespuestasPorPreguntaActivity extends AppCompatActivity {
 
     RecyclerView recycler_respuestas;
 
-    RespuestaPorTuPreguntaAdapter adapter;
+    RespuestaPorPreguntaAdapter adapter;
 
     int idPregunta;
     String token;
@@ -44,7 +43,7 @@ public class RespuestasPorTuPreguntaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_respuestas_por_tu_pregunta);
+        setContentView(R.layout.activity_respuestas_por_preguntas);
 
         Init();
         InitEvents();
@@ -66,7 +65,7 @@ public class RespuestasPorTuPreguntaActivity extends AppCompatActivity {
         fabAgregarRespuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RespuestasPorTuPreguntaActivity.this, RegistrarRespuestaActivity.class);
+                Intent intent = new Intent(RespuestasPorPreguntaActivity.this, RegistrarRespuestaActivity.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +82,7 @@ public class RespuestasPorTuPreguntaActivity extends AppCompatActivity {
 
         recuperarPreferencia();
 
-        pd = new SweetAlertDialog(RespuestasPorTuPreguntaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pd = new SweetAlertDialog(RespuestasPorPreguntaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
         pd.setContentText("Por favor, espere LISTA");
         pd.setCancelable(false);
@@ -110,7 +109,7 @@ public class RespuestasPorTuPreguntaActivity extends AppCompatActivity {
 
                 pd.dismiss();
 
-                pd = new SweetAlertDialog(RespuestasPorTuPreguntaActivity.this, SweetAlertDialog.ERROR_TYPE);
+                pd = new SweetAlertDialog(RespuestasPorPreguntaActivity.this, SweetAlertDialog.ERROR_TYPE);
                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                 pd.setContentText(t.getMessage());
                 pd.setCancelable(false);
@@ -122,7 +121,7 @@ public class RespuestasPorTuPreguntaActivity extends AppCompatActivity {
 
     private void configurarAdaptador(ArrayList<Respuesta> listRespuesta) {
 
-        adapter = new RespuestaPorTuPreguntaAdapter(listRespuesta);
+        adapter = new RespuestaPorPreguntaAdapter(listRespuesta);
 
         recycler_respuestas.setAdapter(adapter);
         recycler_respuestas.setLayoutManager(new LinearLayoutManager(this));

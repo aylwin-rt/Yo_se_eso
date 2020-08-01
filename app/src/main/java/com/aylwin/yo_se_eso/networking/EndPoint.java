@@ -62,11 +62,11 @@ public interface EndPoint {
     @Headers("Content-Type:application/json")
     Call<Respuesta> eliminarRespuesta(@Path("idRespuesta") int idRespuesta);
 
-    @POST("Pregunta")
+    @POST("Respuesta")
     @Headers("Content-Type:application/json")
     Call<Respuesta> grabarRespuesta(@Body Respuesta respuesta);
 
-    @PUT("Pregunta")
+    @PUT("Respuesta")
     @Headers("Content-Type:application/json")
     Call<Respuesta> actualizarRespuesta(@Body Respuesta respuesta);
 }

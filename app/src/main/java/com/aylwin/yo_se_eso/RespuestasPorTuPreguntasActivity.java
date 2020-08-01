@@ -1,8 +1,6 @@
 package com.aylwin.yo_se_eso;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aylwin.yo_se_eso.adapter.RespuestaPorPreguntaAdapter;
+import com.aylwin.yo_se_eso.adapter.RespuestaPorTuPreguntaAdapter;
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
 import com.aylwin.yo_se_eso.networking.EndPoint;
@@ -27,11 +25,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RespuestasPorPreguntasActivity extends AppCompatActivity {
+public class RespuestasPorTuPreguntasActivity extends AppCompatActivity {
 
     RecyclerView recycler_respuestas;
 
-    RespuestaPorPreguntaAdapter adapter;
+    RespuestaPorTuPreguntaAdapter adapter;
 
     int idPregunta;
     String token;
@@ -45,7 +43,7 @@ public class RespuestasPorPreguntasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_respuestas_por_preguntas);
+        setContentView(R.layout.activity_respuestas_por_tu_pregunta);
 
         Init();
         InitEvents();
@@ -64,7 +62,7 @@ public class RespuestasPorPreguntasActivity extends AppCompatActivity {
 
     private void InitEvents() {
 
-        setTitle("Respuestas de la Pregunta");//Respuestas por idPregunta
+        setTitle("Respuestas de tu Pregunta");//Respuestas por idPregunta
 
         /*
 
@@ -151,7 +149,13 @@ public class RespuestasPorPreguntasActivity extends AppCompatActivity {
         fabAgregarRespuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RespuestasPorPreguntasActivity.this, RegistrarRespuestaActivity.class);
+
+                //Creamos el bundle
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("pregunta",pregunta);
+
+                Intent intent = new Intent(RespuestasPorTuPreguntasActivity.this,RegistrarRespuestaActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -168,7 +172,7 @@ public class RespuestasPorPreguntasActivity extends AppCompatActivity {
 
         recuperarPreferencia();
 
-        pd = new SweetAlertDialog(RespuestasPorPreguntasActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+        pd = new SweetAlertDialog(RespuestasPorTuPreguntasActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
         pd.setContentText("Por favor, espere LISTA");
         pd.setCancelable(false);
@@ -195,7 +199,7 @@ public class RespuestasPorPreguntasActivity extends AppCompatActivity {
 
                 pd.dismiss();
 
-                pd = new SweetAlertDialog(RespuestasPorPreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
+                pd = new SweetAlertDialog(RespuestasPorTuPreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                 pd.setContentText(t.getMessage());
                 pd.setCancelable(false);
@@ -207,7 +211,7 @@ public class RespuestasPorPreguntasActivity extends AppCompatActivity {
 
     private void configurarAdaptador(ArrayList<Respuesta> listRespuesta) {
 
-        adapter = new RespuestaPorPreguntaAdapter(listRespuesta);
+        adapter = new RespuestaPorTuPreguntaAdapter(listRespuesta);
 
         recycler_respuestas.setAdapter(adapter);
         recycler_respuestas.setLayoutManager(new LinearLayoutManager(this));
