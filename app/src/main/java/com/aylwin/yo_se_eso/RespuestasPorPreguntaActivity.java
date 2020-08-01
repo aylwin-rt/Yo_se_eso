@@ -65,8 +65,15 @@ public class RespuestasPorPreguntaActivity extends AppCompatActivity {
         fabAgregarRespuesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RespuestasPorPreguntaActivity.this, RegistrarRespuestaActivity.class);
+
+                //Creamos el bundle
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("pregunta",pregunta);
+
+                Intent intent = new Intent(RespuestasPorPreguntaActivity.this,RegistrarRespuestaActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
+
             }
         });
     }
