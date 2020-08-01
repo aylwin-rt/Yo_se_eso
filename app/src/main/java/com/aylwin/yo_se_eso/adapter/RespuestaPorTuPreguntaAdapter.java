@@ -62,14 +62,14 @@ public class RespuestaPorTuPreguntaAdapter extends RecyclerView.Adapter<Respuest
         return listRespuesta.get(position);
     }
 
-/*
-    public void eliminarPregunta(int position) {
 
-        listPregunta.remove(position);
+    public void eliminarRespuesta(int position) {
+
+        listRespuesta.remove(position);
         notifyItemRemoved(position);
     }
 
-     */
+
 
 
     public class RespuestaAdapterViewHolder extends RecyclerView.ViewHolder {

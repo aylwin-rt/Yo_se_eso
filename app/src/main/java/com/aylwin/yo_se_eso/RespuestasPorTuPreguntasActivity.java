@@ -1,6 +1,8 @@
 package com.aylwin.yo_se_eso;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,7 +66,7 @@ public class RespuestasPorTuPreguntasActivity extends AppCompatActivity {
 
         setTitle("Respuestas de tu Pregunta");//Respuestas por idPregunta
 
-        /*
+
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -82,15 +84,15 @@ public class RespuestasPorTuPreguntasActivity extends AppCompatActivity {
                 Respuesta respuesta = adapter.obtenerRespuesta(viewHolder.getAdapterPosition());
 
 
-                //Eliminar la pregunta
-                pd = new SweetAlertDialog(RespuestasPorPreguntasActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                //Eliminar la respuesta
+                pd = new SweetAlertDialog(RespuestasPorTuPreguntasActivity.this, SweetAlertDialog.PROGRESS_TYPE);
                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                 pd.setContentText("Por favor, espere ELIMINAR");
                 pd.setCancelable(false);
                 pd.show();
 
                 EndPoint endPoint = HelperWs.getConfiguration().create(EndPoint.class);
-                Call<Respuesta> response = endPoint.eliminarRespuesta(respuesta.getIdPregunta());
+                Call<Respuesta> response = endPoint.eliminarRespuesta(respuesta.getIdRespuesta());
                 response.enqueue(new Callback<Respuesta>() {
                     @Override
                     public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
@@ -101,13 +103,13 @@ public class RespuestasPorTuPreguntasActivity extends AppCompatActivity {
 
                             if (respuesta.getMensajeCodigo() == 200) {
 
-                                adapter.eliminarPregunta(viewHolder.getAdapterPosition());
+                                adapter.eliminarRespuesta(viewHolder.getAdapterPosition());
                                 pd.dismiss();
                             } else {
 
                                 pd.dismiss();
 
-                                pd = new SweetAlertDialog(RespuestasPorPreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
+                                pd = new SweetAlertDialog(RespuestasPorTuPreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
                                 pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                                 pd.setContentText(respuesta.getMensajeResultado());
                                 pd.setCancelable(false);
@@ -121,7 +123,7 @@ public class RespuestasPorTuPreguntasActivity extends AppCompatActivity {
 
                         pd.dismiss();
 
-                        pd = new SweetAlertDialog(RespuestasPorPreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
+                        pd = new SweetAlertDialog(RespuestasPorTuPreguntasActivity.this, SweetAlertDialog.ERROR_TYPE);
                         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
                         pd.setContentText(t.getMessage());
                         pd.setCancelable(false);
@@ -132,7 +134,7 @@ public class RespuestasPorTuPreguntasActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recycler_respuestas);
 
-         */
+
 /*
         fabAgregarRespuesta.setOnClickListener(new View.OnClickListener() { //TODO DUPLICADO
             @Override
