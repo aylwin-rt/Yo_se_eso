@@ -36,25 +36,50 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     private void InitEvents() {
-        //btn_registrar_usuario = findViewById(R.id.btn_registrar_usuario);
+
         btn_registrar_usuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(),"Le diste clic en el botón registrar xd",Toast.LENGTH_LONG).show();
 
-                pd = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-                pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
-                pd.setContentText("Por favor, espere");
-                pd.setCancelable(false);
-                pd.show();
+                if (edt_nombres.getText().toString().equals("")) {
+                    Toast.makeText(RegistroActivity.this, "Debe ingresar su nombre", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(edt_apellidos.getText().toString().equals("")) {
+                    Toast.makeText(RegistroActivity.this, "Debe ingresar su apellido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(edt_email.getText().toString().equals("")) {
+                    Toast.makeText(RegistroActivity.this, "Debe ingresar su email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(edt_contrasenya.getText().toString().equals("")) {
+                    Toast.makeText(RegistroActivity.this, "Debe ingresar su contraseña", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(edt_confirmar_contrasenya.getText().toString().equals("")){
+                    Toast. makeText(RegistroActivity.this,"Debe ingresar su contraseña",Toast. LENGTH_SHORT).show();
+                    return;
+                }
+                if(!edt_contrasenya.getText().toString().equals(edt_confirmar_contrasenya.getText().toString())) {
+                    Toast.makeText(RegistroActivity.this, "Sus contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
-                final Usuario usuario = new Usuario();
+                    pd = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                    pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
+                    pd.setContentText("Por favor, espere");
+                    pd.setCancelable(false);
+                    pd.show();
 
-                usuario.setNombres(edt_nombres.getText().toString());
-                usuario.setApellidos(edt_apellidos.getText().toString());
-                usuario.setEmail(edt_email.getText().toString());
-                usuario.setContrasenya(edt_contrasenya.getText().toString());
+
+                    final Usuario usuario = new Usuario();
+
+                    usuario.setNombres(edt_nombres.getText().toString());
+                    usuario.setApellidos(edt_apellidos.getText().toString());
+                    usuario.setEmail(edt_email.getText().toString());
+                    usuario.setContrasenya(edt_contrasenya.getText().toString());
 
 /*
                 usuario.setNombres("Franklin");
@@ -65,63 +90,64 @@ public class RegistroActivity extends AppCompatActivity {
  */
 
 
-                EndPoint endPoint = HelperWs.getConfiguration().create(EndPoint.class);
-                Call<Respuesta> response = endPoint.grabarUsuario(usuario);
-                response.enqueue(new Callback<Respuesta>() {
-                    @Override
-                    public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                        if (response.isSuccessful()) {
-                            Respuesta respuesta = response.body();
+                    EndPoint endPoint = HelperWs.getConfiguration().create(EndPoint.class);
+                    Call<Respuesta> response = endPoint.grabarUsuario(usuario);
+                    response.enqueue(new Callback<Respuesta>() {
+                        @Override
+                        public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                            if (response.isSuccessful()) {
+                                Respuesta respuesta = response.body();
 
-                            if (respuesta.getMensajeCodigo() == 200) {
-                                //Grabó correctamente
-                                pd.dismiss();
-                                new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                        .setTitleText("Informativo")
-                                        .setContentText("Usuario registrado")
-                                        .setConfirmText("Continuar")
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                if (respuesta.getMensajeCodigo() == 200) {
+                                    //Grabó correctamente
+                                    pd.dismiss();
+                                    new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.SUCCESS_TYPE)
+                                            .setTitleText("Informativo")
+                                            .setContentText("Usuario registrado")
+                                            .setConfirmText("Continuar")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
 
-                                                Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
-                                                startActivity(intent);
-                                            }
-                                        }).show();
+                                                    Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            }).show();
                                 /*
                                 Toast.makeText(getApplicationContext(),"Grabado correctamente",Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(RegistroActivity.this, InicioActivity.class);
                                 startActivity(intent);
 
                                  */
-                            } else {
-                                //Algun tipo de error o validacion
-                                pd.dismiss();
+                                } else {
+                                    //Algun tipo de error o validacion
+                                    pd.dismiss();
 
-                                pd = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.ERROR_TYPE);
-                                pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
-                                pd.setContentText(usuario.getMensajeResultado());
-                                pd.setCancelable(false);
-                                pd.show();
+                                    pd = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.ERROR_TYPE);
+                                    pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
+                                    pd.setContentText(usuario.getMensajeResultado());
+                                    pd.setCancelable(false);
+                                    pd.show();
+                                }
                             }
+
                         }
 
-                    }
+                        @Override
+                        public void onFailure(Call<Respuesta> call, Throwable t) {
+                            pd.dismiss();
 
-                    @Override
-                    public void onFailure(Call<Respuesta> call, Throwable t) {
-                        pd.dismiss();
+                            pd = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.ERROR_TYPE);
+                            pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
+                            pd.setContentText(t.getMessage());
+                            pd.setCancelable(false);
+                            pd.show();
+                        }
+                    });
 
-                        pd = new SweetAlertDialog(RegistroActivity.this, SweetAlertDialog.ERROR_TYPE);
-                        pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
-                        pd.setContentText(t.getMessage());
-                        pd.setCancelable(false);
-                        pd.show();
-                    }
-                });
+                }
 
 
-            }
         });
     }
 

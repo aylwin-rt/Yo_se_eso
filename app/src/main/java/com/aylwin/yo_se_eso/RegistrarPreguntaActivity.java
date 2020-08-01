@@ -157,6 +157,16 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
     public void editarPregunta() {
 
+        if(edt_nombre.getText().toString().equals("")) {
+            Toast.makeText(RegistrarPreguntaActivity.this, "Debe ingresar una indicación", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(edt_tema.getText().toString().equals("")) {
+            Toast.makeText(RegistrarPreguntaActivity.this, "Debe ingresar el tema", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         pd = new SweetAlertDialog(RegistrarPreguntaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
         pd.setContentText("Por favor, espere EDITAR");
@@ -225,6 +235,16 @@ public class RegistrarPreguntaActivity extends AppCompatActivity {
 
 
     public void grabarPregunta() {
+
+        if(edt_nombre.getText().toString().equals("")) {
+            Toast.makeText(RegistrarPreguntaActivity.this, "Debe ingresar una descripción", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(edt_tema.getText().toString().equals("")) {
+            Toast.makeText(RegistrarPreguntaActivity.this, "Debe ingresar el tema", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         pd = new SweetAlertDialog(RegistrarPreguntaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));

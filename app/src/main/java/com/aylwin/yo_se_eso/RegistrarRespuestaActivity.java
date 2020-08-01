@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aylwin.yo_se_eso.modelo.response.Pregunta;
 import com.aylwin.yo_se_eso.modelo.response.Respuesta;
@@ -228,6 +229,11 @@ public class RegistrarRespuestaActivity extends AppCompatActivity {
 
 
     public void grabarRespuesta() {
+
+        if(edt_nombre.getText().toString().equals("")) {
+            Toast.makeText(RegistrarRespuestaActivity.this, "Debe ingresar una indicación", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         pd = new SweetAlertDialog(RegistrarRespuestaActivity.this, SweetAlertDialog.PROGRESS_TYPE);
         pd.getProgressHelper().setBarColor(Color.parseColor("#102670"));
